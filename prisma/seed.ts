@@ -3,24 +3,30 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
+const ACCOUNTS = [
+  { email: "haris@podomed.local", name: "Haris" },
+  { email: "dzan@podomed.local", name: "Dzan" },
+  { email: "kanita@podomed.local", name: "Kanita" },
+] as const;
+
 async function main() {
   const passwordHash = await bcrypt.hash("podomed2026", 10);
-  await prisma.user.upsert({
-    where: { email: "clinic@podomed.local" },
-    update: { passwordHash, name: "Clinic" },
-    create: {
-      email: "clinic@podomed.local",
-      passwordHash,
-      name: "Clinic",
-    },
-  });
-  await prisma.user.upsert({
-    where: { email: "family@podomed.local" },
-    update: { passwordHash, name: "Family" },
-    create: {
-      email: "family@podomed.local",
-      passwordHash,
-      name: "Family",
+
+  for (const account of ACCOUNTS) {
+    await prisma.user.upsert({
+      where: { email: account.email },
+      update: { passwordHash, name: account.name },
+      create: {
+        email: account.email,
+        passwordHash,
+        name: account.name,
+      },
+    });
+  }
+
+  await prisma.user.deleteMany({
+    where: {
+      email: { in: ["clinic@podomed.local", "family@podomed.local"] },
     },
   });
 }

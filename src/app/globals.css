@@ -5,6 +5,23 @@
 :root {
   --bg: #fffafc;
   --surface: #ffffff;
+  --surface-muted: rgba(255, 255, 255, 0.92);
+  --header-bg: rgba(255, 255, 255, 0.82);
+  --ink: #1a1a2e;
+  --ink-muted: #5c5c76;
+}
+
+.dark {
+  --bg: #0c0a10;
+  --surface: #18181b;
+  --surface-muted: rgba(24, 24, 27, 0.92);
+  --header-bg: rgba(24, 24, 27, 0.88);
+  --ink: #f4f4f5;
+  --ink-muted: #a1a1aa;
+}
+
+html {
+  transition: background-color 0.5s ease, color 0.45s ease;
 }
 
 html,
@@ -14,6 +31,7 @@ body {
 
 body {
   @apply bg-[var(--bg)] text-ink antialiased;
+  transition: background-color 0.55s ease, color 0.45s ease;
   background-image: radial-gradient(
       ellipse 120% 80% at 50% -20%,
       rgba(252, 228, 236, 0.9),
@@ -24,6 +42,15 @@ body {
       rgba(244, 143, 177, 0.12),
       transparent
     );
+}
+
+.dark body {
+  background-image: radial-gradient(
+      ellipse 120% 80% at 50% -20%,
+      rgba(216, 27, 96, 0.12),
+      transparent
+    ),
+    radial-gradient(ellipse 70% 50% at 100% 0%, rgba(244, 143, 177, 0.06), transparent);
 }
 
 @keyframes fade-up {
@@ -40,3 +67,48 @@ body {
 .animate-fade-up {
   animation: fade-up 0.45s ease-out both;
 }
+
+@keyframes pme-soft-pulse {
+  0% {
+    filter: saturate(1);
+  }
+  50% {
+    filter: saturate(1.12);
+  }
+  100% {
+    filter: saturate(1);
+  }
+}
+
+.pme-locale-pulse {
+  animation: pme-soft-pulse 0.45s ease-out;
+}
+
+@keyframes pme-theme-breathe {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pme-theme-pulse {
+  animation: pme-theme-breathe 0.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    transition: none !important;
+  }
+
+  .pme-locale-pulse,
+  .pme-theme-pulse {
+    animation: none !important;
+  }
+}
+

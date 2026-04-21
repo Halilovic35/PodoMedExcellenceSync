@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -17,8 +18,8 @@ const config: Config = {
           muted: "#F8BBD0",
         },
         ink: {
-          DEFAULT: "#1a1a2e",
-          muted: "#5c5c76",
+          DEFAULT: "var(--ink)",
+          muted: "var(--ink-muted)",
         },
       },
       fontFamily: {

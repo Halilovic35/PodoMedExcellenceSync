@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { PreferencesProvider } from "@/context/preferences-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,8 +26,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="font-sans min-h-screen">{children}</body>
+    <html lang="de" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("pme_theme");if(t==="dark"||t==="light"){document.documentElement.classList.toggle("dark",t==="dark");}}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="font-sans min-h-screen">
+        <PreferencesProvider>{children}</PreferencesProvider>
+      </body>
     </html>
   );
 }
