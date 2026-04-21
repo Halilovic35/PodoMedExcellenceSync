@@ -14,20 +14,38 @@ model User {
   name         String
   createdAt    DateTime      @default(now())
   appointments Appointment[]
-  documents    Document[]
   messages     ChatMessage[]
+  documents    Document[]
 }
 
 model Appointment {
-  id        String   @id @default(cuid())
-  title     String
-  startAt   DateTime
-  endAt     DateTime
-  notes     String   @default("")
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+
+  // Planner-style fields (ported from the existing "termini" app)
+  date        String   @default("") // yyyy-MM-dd
+  time        String   @default("") // HH:mm
+  cabin       Int      @default(1)
+  patientName String   @default("")
+  phone       String   @default("")
+  treatment   String   @default("")
+  note        String   @default("")
+  status      String   @default("confirmed") // confirmed | completed | cancelled
+  duration    Int      @default(30)          // minutes
+
+  // Backwards-compatible fields for timeline views / auditing
+  startAt     DateTime
+  endAt       DateTime
+  title       String   @default("")
+  notes       String   @default("")
+
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([date])
+  @@index([date, time])
+  @@index([patientName])
 }
 
 model Document {
@@ -40,15 +58,15 @@ model Document {
   status       String   @default("Uploaded")
   version      Int      @default(1)
   uploadedById String
-  uploadedBy   User     @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  uploadedBy   User     @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
 }
 
 model ChatMessage {
   id        String   @id @default(cuid())
   body      String
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
