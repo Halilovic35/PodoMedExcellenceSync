@@ -34,7 +34,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans min-h-screen">
+      <body className="font-sans min-h-screen min-w-0 overflow-x-hidden">
         <PreferencesProvider>{children}</PreferencesProvider>
       </body>
     </html>

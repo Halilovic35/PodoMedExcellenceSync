@@ -98,6 +98,6 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  emitAppointmentsChanged();
+  emitAppointmentsChanged({ actorUserId: r.user.id });
   return NextResponse.json({ item });
 }

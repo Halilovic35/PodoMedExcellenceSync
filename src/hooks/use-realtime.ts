@@ -1,37 +1,35 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { io, type Socket } from "socket.io-client";
+import {
+  getNextRealtimeSubscriberId,
+  useWorkspaceRealtimeRegistry,
+  type RealtimeHandlers,
+} from "@/context/workspace-realtime-provider";
 
-export type RealtimeHandlers = {
-  onAppointmentsChanged?: () => void;
-  onDocumentsChanged?: () => void;
-  onChatMessage?: (payload: unknown) => void;
-};
+export type { RealtimeHandlers } from "@/context/workspace-realtime-provider";
 
 export function useRealtime(handlers: RealtimeHandlers) {
-  const ref = useRef(handlers);
-  ref.current = handlers;
+  const registry = useWorkspaceRealtimeRegistry();
+  const idRef = useRef<number | null>(null);
+  const handlersRef = useRef(handlers);
+  handlersRef.current = handlers;
 
   useEffect(() => {
-    const socket: Socket = io({
-      path: "/socket.io",
-      transports: ["websocket", "polling"],
-    });
+    if (!registry) return;
 
-    const onAppt = () => ref.current.onAppointmentsChanged?.();
-    const onDocs = () => ref.current.onDocumentsChanged?.();
-    const onChat = (payload: unknown) => ref.current.onChatMessage?.(payload);
+    if (idRef.current === null) {
+      idRef.current = getNextRealtimeSubscriberId();
+    }
+    const id = idRef.current;
 
-    socket.on("appointments:changed", onAppt);
-    socket.on("documents:changed", onDocs);
-    socket.on("chat:message", onChat);
-
-    return () => {
-      socket.off("appointments:changed", onAppt);
-      socket.off("documents:changed", onDocs);
-      socket.off("chat:message", onChat);
-      socket.disconnect();
+    const subscriber: RealtimeHandlers = {
+      onAppointmentsChanged: (p) => handlersRef.current.onAppointmentsChanged?.(p),
+      onDocumentsChanged: (p) => handlersRef.current.onDocumentsChanged?.(p),
+      onChatMessage: (p) => handlersRef.current.onChatMessage?.(p),
     };
-  }, []);
+
+    registry.subscribe(id, subscriber);
+    return () => registry.unsubscribe(id);
+  }, [registry]);
 }

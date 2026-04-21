@@ -123,16 +123,16 @@ export function MailAccessPanel({ webmailUrl }: { webmailUrl: string }) {
   }, []);
 
   const cardShell =
-    "group flex h-full flex-col rounded-[2rem] bg-gradient-to-br p-8 shadow-card ring-1 ring-brand-soft/80 transition duration-300 hover:-translate-y-0.5 hover:shadow-lift dark:ring-zinc-700/70";
+    "group flex h-full min-w-0 flex-col rounded-[2rem] bg-gradient-to-br p-6 shadow-card ring-1 ring-brand-soft/80 transition duration-300 hover:-translate-y-0.5 hover:shadow-lift sm:p-8 dark:ring-zinc-700/70";
 
   return (
-    <div className="mx-auto max-w-5xl space-y-10 animate-fade-up px-0">
+    <div className="mx-auto min-w-0 max-w-5xl space-y-8 animate-fade-up px-0 sm:space-y-10">
       <header className="space-y-2 text-center sm:text-left">
-        <h1 className="font-display text-3xl text-ink sm:text-4xl">{t("mail.workspaceTitle")}</h1>
+        <h1 className="font-display text-2xl text-ink sm:text-3xl md:text-4xl">{t("mail.workspaceTitle")}</h1>
         <p className="mx-auto max-w-2xl text-sm text-ink-muted sm:mx-0">{t("mail.workspaceIntro")}</p>
       </header>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Card 1: Open IONOS */}
         <div className={`${cardShell} from-brand-soft to-white dark:from-zinc-900 dark:to-zinc-950`}>
           <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-3xl bg-white/95 text-brand shadow-inner ring-1 ring-brand-soft transition group-hover:scale-[1.03] dark:bg-zinc-900/95 dark:ring-zinc-700">
@@ -194,7 +194,7 @@ export function MailAccessPanel({ webmailUrl }: { webmailUrl: string }) {
 
       {credentials ? (
         <section
-          className="animate-fade-up space-y-6 rounded-[2rem] border border-brand-soft/60 bg-[var(--surface-muted)] p-8 shadow-lift ring-1 ring-brand-soft/50 dark:border-zinc-700/80 dark:ring-zinc-800/80"
+          className="animate-fade-up space-y-5 rounded-[2rem] border border-brand-soft/60 bg-[var(--surface-muted)] p-5 shadow-lift ring-1 ring-brand-soft/50 sm:space-y-6 sm:p-8 dark:border-zinc-700/80 dark:ring-zinc-800/80"
           aria-label={t("mail.credentialsPanelTitle")}
         >
           <div className="flex flex-col gap-2 border-b border-brand-soft/50 pb-4 dark:border-zinc-700/80 sm:flex-row sm:items-end sm:justify-between">
@@ -269,7 +269,7 @@ export function MailAccessPanel({ webmailUrl }: { webmailUrl: string }) {
             aria-modal="true"
             aria-labelledby={modalTitleId}
             aria-describedby={helperId}
-            className="relative z-10 w-full max-w-xl animate-fade-up rounded-[2rem] border border-brand-soft/70 bg-[var(--surface-muted)] p-8 shadow-2xl ring-1 ring-black/5 dark:border-zinc-600/80 dark:bg-zinc-950 dark:ring-white/10 sm:p-10"
+            className="relative z-10 max-h-[90dvh] w-full max-w-xl animate-fade-up overflow-y-auto overscroll-contain rounded-[2rem] border border-brand-soft/70 bg-[var(--surface-muted)] p-6 shadow-2xl ring-1 ring-black/5 dark:border-zinc-600/80 dark:bg-zinc-950 dark:ring-white/10 sm:p-10"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 id={modalTitleId} className="font-display text-2xl text-ink sm:text-[1.65rem]">

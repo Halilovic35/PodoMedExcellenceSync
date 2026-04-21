@@ -67,7 +67,7 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
       where: { id },
       data,
     });
-    emitAppointmentsChanged();
+    emitAppointmentsChanged({ actorUserId: r.user.id });
     return NextResponse.json({ item });
   } catch {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -81,7 +81,7 @@ export async function DELETE(req: NextRequest, ctx: Ctx) {
   const { id } = ctx.params;
   try {
     await prisma.appointment.delete({ where: { id } });
-    emitAppointmentsChanged();
+    emitAppointmentsChanged({ actorUserId: r.user.id });
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Not found" }, { status: 404 });

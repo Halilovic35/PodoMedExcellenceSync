@@ -56,6 +56,6 @@ export async function POST(req: NextRequest) {
     include: { uploadedBy: { select: { name: true } } },
   });
 
-  emitDocumentsChanged();
+  emitDocumentsChanged({ actorUserId: r.user.id });
   return NextResponse.json({ item });
 }

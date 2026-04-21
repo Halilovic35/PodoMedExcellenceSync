@@ -102,10 +102,10 @@ export function DocumentsPanel() {
   }
 
   return (
-    <div className="space-y-10 animate-fade-up">
+    <div className="min-w-0 space-y-8 animate-fade-up sm:space-y-10">
       <div className="space-y-2">
         <h1 className="font-display text-2xl text-ink sm:text-3xl">{t("docs.title")}</h1>
-        <p className="text-ink-muted">{t("docs.subtitle")}</p>
+        <p className="text-sm text-ink-muted sm:text-base">{t("docs.subtitle")}</p>
       </div>
 
       <div
@@ -119,7 +119,7 @@ export function DocumentsPanel() {
           setDragOver(false);
           if (e.dataTransfer.files?.length) void uploadNew(e.dataTransfer.files);
         }}
-        className={`rounded-[2rem] border-2 border-dashed px-6 py-14 text-center transition ${
+        className={`rounded-[2rem] border-2 border-dashed px-4 py-10 text-center transition sm:px-6 sm:py-14 ${
           dragOver ? "border-brand bg-brand-soft/50" : "border-brand-soft bg-[var(--surface-muted)]"
         } shadow-card dark:border-zinc-600 dark:bg-zinc-900/60`}
       >
@@ -175,7 +175,7 @@ export function DocumentsPanel() {
             {sorted.map((doc) => (
               <li
                 key={doc.id}
-                className="space-y-4 rounded-3xl bg-[var(--surface-muted)] p-6 shadow-card ring-1 ring-brand-soft dark:ring-zinc-700/80"
+                className="min-w-0 space-y-4 rounded-3xl bg-[var(--surface-muted)] p-4 shadow-card ring-1 ring-brand-soft sm:p-6 dark:ring-zinc-700/80"
               >
                 <p className="font-display text-xl text-ink break-words">{doc.title}</p>
                 <p className="text-sm text-ink">

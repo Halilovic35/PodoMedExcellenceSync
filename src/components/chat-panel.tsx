@@ -81,13 +81,13 @@ export function ChatPanel() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-8rem)] min-h-[420px] flex-col gap-6 animate-fade-up">
+    <div className="flex min-h-0 flex-1 flex-col gap-4 pb-[env(safe-area-inset-bottom,0px)] animate-fade-up sm:gap-6">
       <div className="shrink-0 space-y-2">
         <h1 className="font-display text-2xl text-ink sm:text-3xl">{t("chat.title")}</h1>
-        <p className="text-ink-muted">{t("chat.subtitle")}</p>
+        <p className="text-sm text-ink-muted sm:text-base">{t("chat.subtitle")}</p>
       </div>
 
-      <div className="flex-1 space-y-3 overflow-y-auto rounded-[2rem] bg-[var(--surface-muted)] p-4 shadow-card ring-1 ring-brand-soft sm:p-6 dark:ring-zinc-700/80">
+      <div className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain rounded-[2rem] bg-[var(--surface-muted)] p-3 shadow-card ring-1 ring-brand-soft sm:p-6 dark:ring-zinc-700/80">
         {items.length === 0 ? (
           <p className="py-16 text-center text-sm text-ink-muted">{t("chat.empty")}</p>
         ) : (
@@ -96,7 +96,7 @@ export function ChatPanel() {
             return (
               <div key={m.id} className={`flex ${mine ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-[85%] rounded-3xl px-4 py-3 text-sm shadow-sm ${
+                  className={`max-w-[min(85%,22rem)] rounded-3xl px-4 py-3 text-sm shadow-sm ${
                     mine
                       ? "rounded-br-md bg-brand text-white"
                       : "rounded-bl-md bg-brand-soft/60 text-ink dark:bg-zinc-800 dark:text-zinc-100"
@@ -123,7 +123,7 @@ export function ChatPanel() {
 
       <form
         onSubmit={onSubmit}
-        className="flex shrink-0 items-end gap-3 rounded-[2rem] bg-[var(--surface-muted)] p-3 shadow-card ring-1 ring-brand-soft dark:ring-zinc-700/80"
+        className="flex shrink-0 flex-col gap-2 rounded-[2rem] bg-[var(--surface-muted)] p-3 shadow-card ring-1 ring-brand-soft sm:flex-row sm:items-end sm:gap-3 dark:ring-zinc-700/80"
       >
         <textarea
           value={body}
@@ -131,11 +131,11 @@ export function ChatPanel() {
           onKeyDown={onComposerKeyDown}
           rows={2}
           placeholder={t("chat.placeholder")}
-          className="flex-1 resize-none rounded-2xl border border-transparent bg-transparent px-3 py-2 text-sm text-ink outline-none placeholder:text-ink-muted focus:ring-0"
+          className="min-h-[2.75rem] w-full flex-1 resize-none rounded-2xl border border-transparent bg-transparent px-3 py-2 text-sm text-ink outline-none placeholder:text-ink-muted focus:ring-0 sm:min-h-0"
         />
         <button
           type="submit"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-brand text-white shadow transition hover:bg-brand-dark"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center self-end rounded-2xl bg-brand text-white shadow transition hover:bg-brand-dark sm:self-auto"
           aria-label={t("chat.sendAria")}
         >
           <Send className="h-5 w-5" />

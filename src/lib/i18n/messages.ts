@@ -25,6 +25,7 @@ export const messagesDe = {
     "Drei Kabinen und Halbstundentakte. Für alle sofort synchron.",
   "appointments.viewDay": "Tag",
   "appointments.viewMonth": "Monat",
+  "appointments.dayPlannerScrollHint": "Seitwärts scrollen, um alle Kabinen zu sehen.",
   "appointments.today": "Heute",
   "appointments.pause": "Pause",
   "appointments.newAppointment": "Neuer Termin",
@@ -155,6 +156,13 @@ export const messagesDe = {
   "prefs.langEn": "EN",
   "prefs.themeLight": "Helles Design",
   "prefs.themeDark": "Dunkles Design",
+
+  "notif.bellAria": "Benachrichtigungen",
+  "notif.panelTitle": "Benachrichtigungen",
+  "notif.markAllRead": "Alle als gelesen",
+  "notif.empty": "Noch keine Benachrichtigungen.",
+  "notif.appointmentTitle": "Neuer oder geänderter Termin",
+  "notif.documentTitle": "Neues Dokument oder neue Dateiversion",
 } as const;
 
 export type MessageKey = keyof typeof messagesDe;
@@ -184,6 +192,7 @@ export const messagesEn: { [K in MessageKey]: string } = {
   "appointments.pageSubtitle": "Three cabins and half hour slots. Synced instantly for everyone.",
   "appointments.viewDay": "Day",
   "appointments.viewMonth": "Month",
+  "appointments.dayPlannerScrollHint": "Scroll sideways to see all cabins.",
   "appointments.today": "Today",
   "appointments.pause": "Break",
   "appointments.newAppointment": "New appointment",
@@ -314,4 +323,11 @@ export const messagesEn: { [K in MessageKey]: string } = {
   "prefs.langEn": "EN",
   "prefs.themeLight": "Light theme",
   "prefs.themeDark": "Dark theme",
+
+  "notif.bellAria": "Notifications",
+  "notif.panelTitle": "Notifications",
+  "notif.markAllRead": "Mark all read",
+  "notif.empty": "No notifications yet.",
+  "notif.appointmentTitle": "New or updated appointment",
+  "notif.documentTitle": "New document or file version",
 };

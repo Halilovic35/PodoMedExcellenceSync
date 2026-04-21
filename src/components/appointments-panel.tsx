@@ -71,13 +71,13 @@ export function AppointmentsPanel() {
   }, [date]);
 
   return (
-    <div className="space-y-6 animate-fade-up">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div className="space-y-1">
+    <div className="min-w-0 space-y-6 animate-fade-up">
+      <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0 space-y-1">
           <h1 className="font-display text-2xl text-ink sm:text-3xl">{t("appointments.pageTitle")}</h1>
-          <p className="text-ink-muted">{t("appointments.pageSubtitle")}</p>
+          <p className="text-sm text-ink-muted sm:text-base">{t("appointments.pageSubtitle")}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex shrink-0 flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setView("day")}
@@ -172,8 +172,8 @@ function MonthView({
   );
 
   return (
-    <div className="rounded-[2rem] bg-[var(--surface-muted)] p-5 shadow-card ring-1 ring-brand-soft dark:ring-zinc-700/80">
-      <div className="flex items-center justify-between">
+    <div className="min-w-0 rounded-[2rem] bg-[var(--surface-muted)] p-3 shadow-card ring-1 ring-brand-soft sm:p-5 dark:ring-zinc-700/80">
+      <div className="flex items-center justify-between gap-2">
         <button
           type="button"
           onClick={prevMonth}
@@ -181,7 +181,9 @@ function MonthView({
         >
           ‹
         </button>
-        <h2 className="font-display text-xl text-ink">{format(monthStart, "LLLL yyyy", { locale: dateLocale })}</h2>
+        <h2 className="min-w-0 truncate text-center font-display text-base text-ink sm:text-lg md:text-xl">
+          {format(monthStart, "LLLL yyyy", { locale: dateLocale })}
+        </h2>
         <button
           type="button"
           onClick={nextMonth}
@@ -191,9 +193,9 @@ function MonthView({
         </button>
       </div>
 
-      <div className="mt-4 grid grid-cols-7 gap-2">
+      <div className="mt-3 grid grid-cols-7 gap-1 sm:mt-4 sm:gap-2">
         {weekLabels.map((d, i) => (
-          <div key={`w-${i}`} className="text-center text-xs font-semibold text-ink-muted">
+          <div key={`w-${i}`} className="truncate text-center text-[10px] font-semibold text-ink-muted sm:text-xs">
             {d}
           </div>
         ))}
@@ -209,7 +211,7 @@ function MonthView({
               type="button"
               onClick={() => onSelectDay(dateStr)}
               className={[
-                "rounded-2xl p-3 text-left ring-1 transition",
+                "rounded-xl p-2 text-left ring-1 transition sm:rounded-2xl sm:p-3",
                 isCurrentMonth
                   ? "bg-white ring-brand-soft hover:bg-brand-soft/35 dark:bg-zinc-900 dark:ring-zinc-700 dark:hover:bg-zinc-800"
                   : "bg-white/60 text-ink-muted ring-brand-soft/60 dark:bg-zinc-950/60 dark:ring-zinc-800",
@@ -319,7 +321,7 @@ function DayView({
   return (
     <div className="space-y-4">
       <div
-        className={`rounded-[2rem] bg-[var(--surface-muted)] p-5 shadow-card ring-1 dark:ring-zinc-700/80 ${
+        className={`rounded-[2rem] bg-[var(--surface-muted)] p-4 shadow-card ring-1 dark:ring-zinc-700/80 sm:p-5 ${
           isToday ? "ring-brand" : "ring-brand-soft"
         }`}
       >
@@ -331,8 +333,8 @@ function DayView({
           >
             ‹
           </button>
-          <div className="text-center">
-            <div className="font-display text-xl text-ink">
+          <div className="min-w-0 flex-1 px-1 text-center">
+            <div className="break-words font-display text-base text-ink sm:text-lg md:text-xl">
               {format(dateObj, "EEEE, d. MMMM yyyy", { locale: dateLocale })}
             </div>
             {isToday ? (
@@ -349,8 +351,9 @@ function DayView({
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-[2rem] bg-[var(--surface-muted)] p-4 shadow-card ring-1 ring-brand-soft dark:ring-zinc-700/80">
-        <div className="min-w-[760px]">
+      <p className="text-center text-xs text-ink-muted sm:hidden">{t("appointments.dayPlannerScrollHint")}</p>
+      <div className="-mx-1 overflow-x-auto overscroll-x-contain rounded-[2rem] bg-[var(--surface-muted)] p-3 shadow-card ring-1 ring-brand-soft [-webkit-overflow-scrolling:touch] sm:mx-0 sm:p-4 dark:ring-zinc-700/80">
+        <div className="min-w-[720px] sm:min-w-[760px]">
           <div className="grid grid-cols-[120px_repeat(3,1fr)] gap-2 pb-2">
             <div />
             {CABIN_IDS.map((id) => (
@@ -581,9 +584,9 @@ function AppointmentForm({
   const cabinLabel = t("appointments.cabin", { n: String(cabinId) });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-3 sm:p-4" onClick={onClose}>
       <div
-        className="w-full max-w-lg rounded-[2rem] bg-[var(--surface-muted)] p-6 shadow-lift ring-1 ring-brand-soft dark:ring-zinc-700/80"
+        className="max-h-[min(90dvh,40rem)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-[2rem] bg-[var(--surface-muted)] p-5 shadow-lift ring-1 ring-brand-soft sm:p-6 dark:ring-zinc-700/80"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-3">
